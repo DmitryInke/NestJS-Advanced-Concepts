@@ -7,17 +7,33 @@ import { CronModule } from './cron/cron.module';
 import { FibonacciModule } from './fibonacci/fibonacci.module';
 import { HttpClientModule } from './http-client/http-client.module';
 import { RecipiesModule } from './recipies/recipies.module';
+import { TagsModule } from './tags/tags.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { PaymentsModule } from './payments/payments.module';
+import { DataSourceModule } from './data-source/data-source.module';
+import { UsersModule } from './users/users.module';
+import { ContextIdFactory } from '@nestjs/core';
+import { AggregateByTenantContextIdStrategy } from './core/aggregate-by-tenant.strategy';
+import { I18nModule } from './i18n/i18n.module';
+import { AggregateByLocaleContextIdStrategy } from './core/aggregate-by-local.strategy';
 
+ContextIdFactory.apply(new AggregateByLocaleContextIdStrategy());
 @Module({
   imports: [
+    EventEmitterModule.forRoot(),
     CoffeesModule,
     SchedulerModule,
     CronModule,
     FibonacciModule,
-    HttpClientModule.register({ baseUrl: 'http://nestjs.com'}),
-    HttpClientModule.register({ baseUrl: 'http://nestjs.com'}),
-    HttpClientModule.register({ baseUrl: 'http://nestjs.com'}),
+    HttpClientModule.register({ baseUrl: 'http://nestjs.com' }),
+    HttpClientModule.register({ baseUrl: 'http://nestjs.com' }),
+    HttpClientModule.register({ baseUrl: 'http://nestjs.com' }),
     RecipiesModule,
+    TagsModule,
+    PaymentsModule,
+    DataSourceModule,
+    UsersModule,
+    I18nModule,
   ],
   controllers: [AppController],
   providers: [AppService],
